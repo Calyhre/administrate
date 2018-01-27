@@ -1,5 +1,4 @@
-require "spec_helper"
-require "support/constant_helpers"
+require "rails_helper"
 require "administrate/field/string"
 require "administrate/field/email"
 require "administrate/field/number"
@@ -53,8 +52,8 @@ describe Administrate::Search do
                                           MockDashboard,
                                           "test")
         expected_query = [
-          "lower(\"users\".\"name\") LIKE ?"\
-          " OR lower(\"users\".\"email\") LIKE ?",
+          "lower(text(\"users\".\"name\")) LIKE ?"\
+          " OR lower(text(\"users\".\"email\")) LIKE ?",
           "%test%",
           "%test%",
         ]
@@ -74,8 +73,8 @@ describe Administrate::Search do
                                           MockDashboard,
                                           "Тест Test")
         expected_query = [
-          "lower(\"users\".\"name\") LIKE ?"\
-          " OR lower(\"users\".\"email\") LIKE ?",
+          "lower(text(\"users\".\"name\")) LIKE ?"\
+          " OR lower(text(\"users\".\"email\")) LIKE ?",
           "%тест test%",
           "%тест test%",
         ]
